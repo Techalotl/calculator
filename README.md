@@ -1,1 +1,1 @@
-# calculator
+The last assignment for The Odin Project: Foundations.
