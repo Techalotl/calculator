@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(226, 225, 225);
+}
+
+.calculator-frame {
+    width: 350px;
+    height: 510px;
+    border: 2px solid black;
+    border-radius: 3%;
+    margin: 20px 0px 10px 0px;
+    background-color: white;
+}
+
+.calculator-screen {
+    width: 280px;
+    height: 100px;
+    border: 2px solid black;
+    margin: 20px auto;
+    font-family: "Orbitron", sans-serif;
+    text-align: end;
+    font-size: 30px;
+    background-color: rgb(226, 225, 225);
+}
+
+.calculator-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 280px;
+    margin: auto;
+}
+
+button {
+    width: 70px;
+    height: 70px;
+    font-family: "Chakra Petch", sans-serif;
+    font-size: 20px;
+}
+
+.equal-button {
+    flex-grow: 2;
+}
+
+.operator {
+    color: white;
+    background-color: black;
+}
