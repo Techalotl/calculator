@@ -16,8 +16,8 @@ body {
 }
 
 .calculator-frame {
-    width: 350px;
-    height: 510px;
+    width: 320px;
+    height: 470px;
     border: 2px solid black;
     border-radius: 3%;
     margin: 20px 0px 10px 0px;
@@ -26,12 +26,14 @@ body {
 
 .calculator-screen {
     width: 280px;
-    height: 100px;
+    height: 60px;
     border: 2px solid black;
     margin: 20px auto;
     font-family: "Orbitron", sans-serif;
-    text-align: end;
-    font-size: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 36px;
     background-color: rgb(226, 225, 225);
 }
 
@@ -58,4 +60,9 @@ button {
 .operator {
     color: white;
     background-color: black;
+}
+
+.operator:hover {
+    color: white;
+    background-color: rgb(8, 8, 8);
 }
