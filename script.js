@@ -56,21 +56,21 @@ function operate (num1, num2, operator) {
         return add(num1, num2);
     } else if (operator == "-") {
         return subtract(num1, num2);
-    } else if (operator == "*") {
+    } else if (operator == "*" || operator == "×") {
         return multiply(num1, num2);
-    } else if (operator == "/") {
+    } else if (operator == "/" || operator == "÷") {
         return divide(num1, num2);
     } else if (operator == "%") {
         return percentage(num1, num2);
     } else {
-        alert("SOMETHING WENT TERRIBLY WRONG. RUN AWAY! Or just refresh.");
+        alert("SOMETHING WENT TERRIBLY WRONG.");
     }
 }
 
 function pushChar (char) {
     if (firstNum.length === 0 && operator.length === 0 && secondNum.length === 0) {
         if (char == ".") {
-            firstNum.push(0);
+            firstNum.push("0");
             firstNum.push(char);
             console.log(firstNum);
             screen.textContent = firstNum.join("");
@@ -88,7 +88,7 @@ function pushChar (char) {
             return;
         } else if (firstNum.length === 1 && firstNum[0] == 0 && char == 0) {
             return;
-        } else if (firstNum.length === 1 && firstNum[0] == 0 && !char == 0 && !char == ".") {
+        } else if (firstNum.length === 1 && firstNum[0] == 0 && !(char == 0 || char == ".")) {
             firstNum.push(char);
             firstNum.shift();
             console.log(firstNum);
@@ -101,7 +101,7 @@ function pushChar (char) {
     } else if (firstNum.length >= 1 && operator.length === 1 && secondNum.length === 0) {
         if (char == ".") {
             point.disabled = true;
-            secondNum.push(0);
+            secondNum.push("0");
             secondNum.push(char);
             console.log(secondNum);
             screen.textContent = secondNum.join("");
@@ -115,7 +115,7 @@ function pushChar (char) {
             return;
         } else if (secondNum.length === 1 && secondNum[0] == 0 && char == 0) {
             return;
-        } else if (secondNum.length === 1 && secondNum[0] == 0 && !char == 0 && !char == ".") {
+        } else if (secondNum.length === 1 && secondNum[0] == 0 && !(char == 0 || char == ".")) {
             secondNum.push(char);
             secondNum.shift();
             console.log(secondNum);
@@ -133,6 +133,16 @@ function pushChar (char) {
     }
 }
 
+function pushOperator (char) {
+    if (firstNum.length === 0) {
+        return;
+    } else {
+        operator.push(char);
+        operatorsOperating();
+        point.disabled = false;
+    }
+}
+
 function operatorsOperating () {
     if (operator.length > 1) {
         screen.textContent = operate(firstNum, secondNum, operator[0]);
@@ -147,18 +157,43 @@ function getSnarkyErrorMessage () {
     return messages[randomNum];
 }
 
-function deleteChar () {
-    //WORK IN PROGRESS
+function subtracting (char) {
+    if (firstNum.length === 0) {
+        firstNum.push("0");
+        pushOperator(char);
+        operatorsOperating();
+        point.disabled = false;
+    } else {
+        pushOperator(char);
+        operatorsOperating();
+        point.disabled = false;
+    }
+}
+
+function getResult () {
     if (firstNum.length === 0 && operator.length === 0 && secondNum.length === 0) {
-        screen.textContent = "STOP FFS!"
-        return;
-    } else if (firstNum.length > 0 && operator.length === 0 && secondNum.length === 0) {
+        screen.textContent = 0;
+    } else if (firstNum.length > 0 && (operator.length === 0 || operator.length > 0) && secondNum.length === 0) {
+        screen.textContent = firstNum.join("");
+    } else {
+        screen.textContent = operate(firstNum, secondNum, operator);
+        operator.length = 0;
+        secondNum.length = 0;
+        firstNum = result.toString().split("");
+    }
+}
+
+function deleteChar () {
+    if (firstNum.length === 1 && operator.length === 0 && secondNum.length === 0) {
+        firstNum[0] = "0";
+        screen.textContent = firstNum;
+    } else if (firstNum.length > 1 && operator.length === 0 && secondNum.length === 0) {
         firstNum.pop();
         screen.textContent = firstNum.join("");
-    } else if(firstNum.length > 0 && operator.length > 0 && secondNum.length === 0) {
-        screen.textContent = "STOP FFS!"
-        return;
-    } else if (firstNum.length > 0 && operator.length > 0 && secondNum.length > 0) {
+    } else if (firstNum.length > 1 && operator.length > 0 && secondNum.length === 1) {
+        secondNum[0] = "0";
+        screen.textContent = secondNum;
+    } else if (firstNum.length > 1 && operator.length > 0 && secondNum.length > 0) {
         secondNum.pop();
         screen.textContent = secondNum.join("");
     } else {
@@ -190,75 +225,93 @@ numberButtons.forEach(button => {
     })
 })
 
-point.addEventListener("click", () => {
-    pushChar(".");
-})
-
-plus.addEventListener("click", () => {
-    if (firstNum.length === 0) {
-        return;
-    } else {
-        operator.push("+");
-        operatorsOperating();
-        point.disabled = false;
+window.addEventListener("keydown", (e) => {
+    console.log(e.key);
+    switch (e.key) {
+        case "1":
+            pushChar(`${e.key}`);
+            break;
+        case "2":
+            pushChar(`${e.key}`);
+            break;
+        case "3":
+            pushChar(`${e.key}`);
+            break;
+        case "4":
+            pushChar(`${e.key}`);
+            break;
+        case "5":
+             pushChar(`${e.key}`);
+             break;
+        case "6":
+            pushChar(`${e.key}`);
+            break;
+        case "7":
+            pushChar(`${e.key}`);
+            break;
+        case "8":
+            pushChar(`${e.key}`);
+            break;
+        case "9":
+            pushChar(`${e.key}`);
+            break;
+        case "0":
+            pushChar(`${e.key}`);
+            break;
+        case ".":
+            pushChar(`${e.key}`);
+            break;
+        case "+":
+            pushOperator(`${e.key}`);
+            break;
+        case "-":
+            subtracting(`${e.key}`);
+            break;
+        case "*":
+            pushOperator(`${e.key}`);
+            break;
+        case "/":
+            pushOperator(`${e.key}`);
+            break;
+        case "%":
+            pushOperator(`${e.key}`);
+            break;
+        case "Enter":
+            getResult();
+            break;
+        case "Backspace":
+            deleteChar();
+            break;
+        default:
+            return;
     }
 })
 
-minus.addEventListener("click", () => {
-    if (firstNum.length === 0) {
-        firstNum.push(0);
-        operator.push("-");
-        operatorsOperating();
-        point.disabled = false;
-    } else {
-        operator.push("-");
-        operatorsOperating();
-        point.disabled = false;
-    }
+point.addEventListener("click", (e) => {
+    pushChar(`${e.target.innerText}`);
 })
 
-multi.addEventListener("click", () => {
-    if (firstNum.length === 0) {
-        return;
-    } else {
-        operator.push("*");
-        operatorsOperating();
-        point.disabled = false;
-    }
+plus.addEventListener("click", (e) => {
+    pushOperator(`${e.target.innerText}`);
+});
+
+minus.addEventListener("click", (e) => {
+    subtracting (`${e.target.innerText}`);
 })
 
-division.addEventListener("click", () => {
-    if (firstNum.length === 0) {
-        return;
-    } else {
-        operator.push("/");
-        operatorsOperating();
-        point.disabled = false;
-    }
+multi.addEventListener("click", (e) => {
+    pushOperator(`${e.target.innerText}`);
 })
 
-percent.addEventListener("click", () => {
-    if (firstNum.length === 0) {
-        return;
-    } else {
-        operator.push("%");
-        operatorsOperating();
-        point.disabled = false;
-    }
+division.addEventListener("click", (e) => {
+    pushOperator(`${e.target.innerText}`);
 })
 
-equal.addEventListener("click", () => {
-    if (firstNum.length === 0 && operator.length === 0 && secondNum.length === 0) {
-        screen.textContent = 0;
-    } else if (firstNum.length > 0 && (operator.length === 0 || operator.length > 0) && secondNum.length === 0) {
-        screen.textContent = firstNum.join("");
-    } else {
-        screen.textContent = operate(firstNum, secondNum, operator);
-        operator.length = 0;
-        secondNum.length = 0;
-        firstNum = result.toString().split("");
-    }
+percent.addEventListener("click", (e) => {
+    pushOperator(`${e.target.innerText}`);
 })
+
+equal.addEventListener("click", getResult);
 
 del.addEventListener("click", deleteChar);
 
