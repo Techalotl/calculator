@@ -66,3 +66,23 @@ button {
     color: white;
     background-color: rgb(8, 8, 8);
 }
+
+.percentage-button:focus {
+    background-color: rgb(43, 43, 43);
+}
+
+.division-button:focus {
+    background-color: rgb(43, 43, 43);
+}
+
+.multiplication-button:focus {
+    background-color: rgb(43, 43, 43);
+}
+
+.minus-button:focus {
+    background-color: rgb(43, 43, 43);
+}
+
+.plus-button:focus {
+    background-color: rgb(43, 43, 43);
+}
