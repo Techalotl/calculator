@@ -226,6 +226,12 @@ numberButtons.forEach(button => {
 })
 
 window.addEventListener("keydown", (e) => {
+    if (e.key == "Enter") {
+        e.preventDefault();
+    }
+})
+
+window.addEventListener("keydown", (e) => {
     console.log(e.key);
     switch (e.key) {
         case "1":
