@@ -134,8 +134,11 @@ function pushChar (char) {
 }
 
 function pushOperator (char) {
-    if (firstNum.length === 0) {
+    if (firstNum.length === 0 && result == "") {
         return;
+    } else if (firstNum.length === 0 && !result == "") {
+        firstNum = result.toString().split("");
+        operator.push(char);
     } else {
         operator.push(char);
         operatorsOperating();
@@ -179,7 +182,7 @@ function getResult () {
         screen.textContent = operate(firstNum, secondNum, operator);
         operator.length = 0;
         secondNum.length = 0;
-        firstNum = result.toString().split("");
+        firstNum.length = 0;
     }
 }
 
@@ -223,12 +226,6 @@ numberButtons.forEach(button => {
     button.addEventListener("click", e => {
         pushChar(e.target.innerText);
     })
-})
-
-window.addEventListener("keydown", (e) => {
-    if (e.key == "Enter") {
-        e.preventDefault();
-    }
 })
 
 window.addEventListener("keydown", (e) => {
@@ -283,6 +280,7 @@ window.addEventListener("keydown", (e) => {
             pushOperator(`${e.key}`);
             break;
         case "Enter":
+            e.preventDefault();
             getResult();
             break;
         case "Backspace":
